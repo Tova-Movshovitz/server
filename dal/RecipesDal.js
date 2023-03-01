@@ -1,4 +1,6 @@
 const db = require('../models/index');
+const { sequelize } = require('sequelize');
+
 const recipe = db.recipe;
 const step = db.step;
 const comment = db.comment;
@@ -29,9 +31,9 @@ class RecipesDal {
                             //include: [measuringUtensil]
                         }
                     },
-                    step, 
+                    step,
                     comment,
-                    
+
                     {
                         model: tag,
                         through: {
@@ -51,17 +53,23 @@ class RecipesDal {
 
     create = async (newRecipe, categories, tags, ingredients) => {
 
-        //block
-        const createdRecipe = await recipe.create(newRecipe, {
-            include: [step, comment,]
-        }
-        );
-        await createdRecipe.addTags(await tag.findAll({ where: { id: tags } }));
-        await createdRecipe.addCategories(await category.findAll({ where: { id: categories } }));
-        ingredients.map(x=>x.recipeId=createdRecipe.id)
-        await recipeIngredient.bulkCreate(ingredients);
-        return await this.getOne(createdRecipe.id,createdRecipe.userId);
+
+
+        return result = await sequelize.transaction(async (t) => {
+            const createdRecipe = await recipe.create(newRecipe, {
+                include: [step, comment,]
+            }
+            );
+            await createdRecipe.addTags(await tag.findAll({ where: { id: tags } }));
+            await createdRecipe.addCategories(await category.findAll({ where: { id: categories } }));
+            ingredients.map(x => x.recipeId = createdRecipe.id)
+            await recipeIngredient.bulkCreate(ingredients);
+
+            return await this.getOne(createdRecipe.id, createdRecipe.userId);
+
+        });
     }
+
 
     update = async (id, userId, recipeToUpdate) => {
         return await recipe.update(recipeToUpdate,

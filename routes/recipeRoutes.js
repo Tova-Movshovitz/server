@@ -16,7 +16,8 @@ recipeRouter.route('/:id')
     .put(recipeController.update)
     .delete(recipeController.deleteOne)
 
-// recipeRouter.route('/search')
-//     .get(recipeController.search)
+// recipeRouter.route('/:id/step')
+//     .put(recipeController.search)
+//     .post(recipeController.search)
 
 module.exports = recipeRouter;
