@@ -28,7 +28,7 @@ class RecipesDal {
                         model: ingredient,
                         through: {
                             attributes: ["measuringUtensilId", "qty"],
-                            //include: [measuringUtensil]
+                            //include: measuringUtensil
                         }
                     },
                     step,
@@ -55,7 +55,7 @@ class RecipesDal {
 
 
 
-        return result = await sequelize.transaction(async (t) => {
+        //return result = await sequelize.transaction(async (t) => {
             const createdRecipe = await recipe.create(newRecipe, {
                 include: [step, comment,]
             }
@@ -67,7 +67,7 @@ class RecipesDal {
 
             return await this.getOne(createdRecipe.id, createdRecipe.userId);
 
-        });
+       // });
     }
 
 
