@@ -2,6 +2,8 @@ const express = require("express");
 const commentRouter = express.Router();
 const commentController = require("../controller/CommentsController")
 
+const verifyJWT=require("../middleware/verifyJWT");
+commentRouter.use(verifyJWT);
 
 commentRouter.route('/')
     .post(commentController.create)

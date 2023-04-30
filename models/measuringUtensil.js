@@ -8,9 +8,6 @@ const MeasuringUtensil = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        plural: {
-            type: DataTypes.STRING,
-        },
     },
     {
         freezeTableName: true,

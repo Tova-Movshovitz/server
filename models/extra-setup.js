@@ -5,7 +5,7 @@ const applyExtraSetup = () => {
   const { tag, ingredient, category, recipeIngredient, measuringUtensil, shared, recipe, comment, step, user } = sequelize.models;
 
   //-----one-to-many-----
-  user.hasMany(recipe ,{onDelete: 'CASCADE'})
+  user.hasMany(recipe,{onDelete: 'CASCADE'})
   recipe.belongsTo(user)
 
   recipe.hasMany(step ,{onDelete: 'CASCADE'})
@@ -33,9 +33,6 @@ const applyExtraSetup = () => {
 
   recipe.belongsToMany(tag, { through: 'recipeTag' })
   tag.belongsToMany(recipe, { through: 'recipeTag' })
-  
-  recipe.belongsToMany(tag, { through: 'recipeTag' })
-  tag.belongsToMany(recipe, { through: 'recipeTag' }) 
 };
 
 module.exports = { applyExtraSetup };

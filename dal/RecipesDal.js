@@ -19,7 +19,7 @@ class RecipesDal {
     }
 
     getOne = async (id, userId) => {
-        return await recipe.findOne(
+        const singleRecipe = await recipe.findOne(
             {
                 where: { id: id, userId: userId },
                 attributes: { exclude: ['userId'], },
@@ -27,9 +27,11 @@ class RecipesDal {
                     {
                         model: ingredient,
                         through: {
-                            attributes: ["measuringUtensilId", "qty"],
+                            attributes: ["measuringUtensilId", "qty","meta"],
                             //include: measuringUtensil
-                        }
+
+
+                        },
                     },
                     step,
                     comment,
@@ -49,6 +51,20 @@ class RecipesDal {
                 ]
             }
         )
+
+        const ingdi = singleRecipe.ingredients.map(async (o) => {
+            console.log("this is in the map")
+            const newObj = { ...o }
+            const measuring = await measuringUtensil.findByPk(o.recipeIngredient?.measuringUtensilId)
+            const name = measuring.toJSON().name
+            console.log("aaaaaa", name);
+            const c = { ...newObj, measuringUtensilName: name }
+            // console.log(c);
+            return c;
+        })
+        console.log(ingdi);
+        //return {...singleRecipe.toJSON(),aaa:"aaaa"}
+        return singleRecipe
     }
 
     create = async (newRecipe, categories, tags, ingredients) => {
@@ -56,24 +72,26 @@ class RecipesDal {
 
 
         //return result = await sequelize.transaction(async (t) => {
-            const createdRecipe = await recipe.create(newRecipe, {
-                include: [step, comment,]
-            }
-            );
-            await createdRecipe.addTags(await tag.findAll({ where: { id: tags } }));
-            await createdRecipe.addCategories(await category.findAll({ where: { id: categories } }));
-            ingredients.map(x => x.recipeId = createdRecipe.id)
-            await recipeIngredient.bulkCreate(ingredients);
+        const createdRecipe = await recipe.create(newRecipe, {
+            include: [step]
+        }
+        );
+        await createdRecipe.addTags(await tag.findAll({ where: { id: tags } }));
+        await createdRecipe.addCategories(await category.findAll({ where: { id: categories } }));
+        ingredients.map(x => x.recipeId = createdRecipe.id)
+        await recipeIngredient.bulkCreate(ingredients);
+        return await this.getOne(createdRecipe.id, createdRecipe.userId);
 
-            return await this.getOne(createdRecipe.id, createdRecipe.userId);
-
-       // });
+        // });
     }
 
 
-    update = async (id, userId, recipeToUpdate) => {
-        return await recipe.update(recipeToUpdate,
-            { where: { id: id, userId: userId } })
+    update = async (id, userId, recipeToUpdate, categories, tags, ingredients) => {
+
+        // return await recipe.update(recipeToUpdate,
+        //     { where: { id: id, userId: userId } })
+        await this.deleteOne(id, userId);
+        await this.create(id, userId, recipeToUpdate, categories, tags, ingredients);
     }
 
     deleteOne = async (id, userId) => {

@@ -7,11 +7,7 @@ const User = sequelize.define(
             allowNull: false,
             unique: true,
         },
-        lname: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        fname: {
+        name: {
             type: DataTypes.STRING,
             allowNull: false,
         },

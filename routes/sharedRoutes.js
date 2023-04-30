@@ -3,7 +3,7 @@ const sharedRouter = express.Router();
 const sharedController = require("../controller/SharedsController")
 
 const verifyJWT=require("../middleware/verifyJWT");
-//sharedRouter.use(verifyJWT);
+sharedRouter.use(verifyJWT);
 
 sharedRouter.route('/')
     .get(sharedController.getAll)

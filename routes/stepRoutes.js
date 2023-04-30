@@ -2,6 +2,9 @@ const express = require("express");
 const stepRouter = express.Router();
 const stepController = require("../controller/StepsController")
 
+const verifyJWT=require("../middleware/verifyJWT");
+stepRouter.use(verifyJWT);
+
 
 stepRouter.route('/')
     .post(stepController.create)

@@ -70,8 +70,41 @@ const country = await Country.findByPk(1, {
 
 
 
-
-// const captains = await Captain.bulkCreate([
-//     { name: 'Jack Sparrow' },
-//     { name: 'Davy Jones' }
-//   ]);
+async function searchAndFilterRecipes(searchTerm, categoryIds, ingredientIds, maxPrepTime, difficulty) {
+    try {
+      // Build the base query for recipes
+      const recipeQuery = {
+        include: [
+          { model: db.Category, as: 'Categories', where: { id: categoryIds } },
+          { model: db.RecipeIngredient, as: 'Ingredients', include: ['Unit'], where: { ingredientId: ingredientIds } }
+        ],
+        where: {}
+      };
+  
+      // Add search term to query
+      if (searchTerm) {
+        recipeQuery.where[Op.or] = [
+          { title: { [Op.iLike]: `%${searchTerm}%` } },
+          { description: { [Op.iLike]: `%${searchTerm}%` } },
+          { '$Categories.name$': { [Op.iLike]: `%${searchTerm}%` } },
+          { '$Ingredients.name$': { [Op.iLike]: `%${searchTerm}%` } }
+        ];
+      }
+  
+      // Add max prep time and difficulty filters to query
+      if (maxPrepTime) {
+        recipeQuery.where.prepTime = { [Op.lte]: maxPrepTime };
+      }
+      if (maxDifficulty) {
+        recipeQuery.where.difficulty = { [Op.lte]: maxDifficulty };
+      }
+  
+      // Execute the query and return the results
+      const recipes = await db.Recipe.findAll(recipeQuery);
+      return recipes;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+  

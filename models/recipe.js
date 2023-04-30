@@ -18,19 +18,16 @@ const Recipe = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        descreption: {
+        description: {
             type: DataTypes.STRING,
         },
         difficult: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         serves: {
             type: DataTypes.INTEGER,
             allowNull: false,
-        },
-        favorite: {
-            type: DataTypes.INTEGER,
         }
     },
     {

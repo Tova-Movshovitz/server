@@ -14,12 +14,15 @@ const RecipeIngredient = sequelize.define(
         },
         measuringUtensilId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
-            //true
+            allowNull: true,
         },
-        qty:{
+        qty: {
             type: DataTypes.INTEGER,
-            defaultValue:1
+            defaultValue: 1
+        },
+        meta: {
+            type: DataTypes.STRING,
+            allowNull: true,
         }
     },
     {

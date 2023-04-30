@@ -5,8 +5,8 @@ const jwt = require('jsonwebtoken')
 const User = db.user
 
 const register = async (req, res) => {
-    const { fname, lname, email, password } = req.body
-    if (!fname || !email || !password) {
+    const { name, email, password } = req.body
+    if (!name || !email || !password) {
         return res.status(400).json({ message: 'All fields are required' })
     }
     //check the email???????????
@@ -15,16 +15,15 @@ const register = async (req, res) => {
         return res.status(409).json({ message: "Duplicate username" })
     }
 
-
     console.log(password);
 
     const hashedPwd = await bcrypt.hash(password, 10)
-    const userObject = { fname, lname, email, password: hashedPwd }
+    const userObject = { name, email, password: hashedPwd }
     console.log(userObject);
     const user = await User.create(userObject)
     if (user) {
         return res.status(201).json({
-            message: `New user ${user.fname} created`
+            message: `New user ${user.name} created`
         })
     }
     else {
@@ -38,14 +37,12 @@ const login = async (req, res) => {
             message: 'All fields are required'
         })
     }
+    
     const foundUser = await User.findOne({ where: { email: email } })
-    //???????????????????????????????
-    if (!foundUser) {    //|| !foundUser.active) {
-        //???????????????????????????????
+    if (!foundUser) {
+        
         return res.status(401).json({ message: 'Unauthorized' })
     }
-
-    //const userInfo = {password, ...foundUser}
     const userInfo = {
         id: foundUser.id, email: foundUser.email,
         lname: foundUser.lname, fname: foundUser.fname
