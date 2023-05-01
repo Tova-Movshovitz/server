@@ -1,3 +1,9 @@
+const db = require('../models/index');
+const { sequelize } = require('sequelize');
+
+const measuringUtensil = db.measuringUtensil;
+const ingredient = db.ingredient;
+const recipeIngredient = db.recipeIngredient;
 const RecipesDal = require("../dal/RecipesDal");
 const { Op } = require('sequelize');
 
@@ -18,10 +24,33 @@ class RecipesController {
         const userId = 1//req.user.id
 
         const ans = await RecipesDal.getOne(id, userId);
+        const ingridients=await recipeIngredient.findAll(
+            {
+                where:{
+                    recipeId:id
+                },
+                include:[
+                    measuringUtensil,
+                    ingredient
+                ]
+            }
+        )
+        const cleanRecipe=ingridients.map(i=>(
+            {
+                qty:i.qty,
+                ingredientName:i.ingredient.name,
+                ingredientId:i.ingredientId,
+                measuringUtensilName:i.measuringUtensil.name,
+                measuringUtensilId:i.measuringUtensilId,
+                img:i.ingredient.img,
+
+            }
+        ))
+
         if (!ans) {
             return res.status(400).json({ message: 'No recipe found' })
         }
-        res.json(ans)
+        res.json({recipe:ans,ingridients:cleanRecipe})
     }
 
     create = async (req, res) => {
@@ -35,17 +64,6 @@ class RecipesController {
         const newRecipe = await RecipesDal.create({ userId, name, img, preperingTime, description, difficult, serves, steps, comments }, categories, tags, ingredients);
 
         if ((newRecipe)) {
-            const cleanIngredients = newRecipe.ingredients.map(i => (
-                {
-                    qty: i.recipeIngredient.qty,
-                    measuringUtensilId: i.recipeIngredient.measuringUtensilId,
-                    ingredientId: i.id,
-                    ingredientName: i.name,
-                    meta: i.recipeIngredient.meta
-                }))
-            const cleanRecipe = { ...newRecipe, ingredients: cleanIngredients }
-            console.log("**************",cleanRecipe.name);
-            console.log("////////////////////",(newRecipe.ingredients));
             return res.status(201).json({ message: 'New recipe created', data: newRecipe })
         }
         else {

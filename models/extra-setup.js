@@ -22,7 +22,9 @@ const applyExtraSetup = () => {
 
   recipeIngredient.belongsTo(measuringUtensil)
   measuringUtensil.hasMany(recipeIngredient ,{onDelete: 'CASCADE'})
-
+  
+  recipeIngredient.belongsTo(ingredient)
+  ingredient.hasMany(recipeIngredient ,{onDelete: 'CASCADE'})
   
   //-----many-to-many-----
   recipe.belongsToMany(ingredient, { through: recipeIngredient })

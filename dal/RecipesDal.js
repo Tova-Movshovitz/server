@@ -27,11 +27,13 @@ class RecipesDal {
                     {
                         model: ingredient,
                         through: {
-                            attributes: ["measuringUtensilId", "qty","meta"],
-                            //include: measuringUtensil
-
+                             attributes: ["measuringUtensilId", "qty","meta"],
+                            //  include: [{
+                            //     model:measuringUtensil
+                            // }]
 
                         },
+                       
                     },
                     step,
                     comment,
@@ -52,25 +54,22 @@ class RecipesDal {
             }
         )
 
-        const ingdi = singleRecipe.ingredients.map(async (o) => {
-            console.log("this is in the map")
-            const newObj = { ...o }
-            const measuring = await measuringUtensil.findByPk(o.recipeIngredient?.measuringUtensilId)
-            const name = measuring.toJSON().name
-            console.log("aaaaaa", name);
-            const c = { ...newObj, measuringUtensilName: name }
-            // console.log(c);
-            return c;
-        })
-        console.log(ingdi);
+        // const ingdi = singleRecipe.ingredients.map(async (o) => {
+        //     console.log("this is in the map")
+        //     const newObj = { ...o }
+        //     const measuring = await measuringUtensil.findByPk(o.recipeIngredient?.measuringUtensilId)
+        //     const name = measuring.toJSON().name
+        //     console.log("aaaaaa", name);
+        //     const c = { ...newObj, measuringUtensilName: name }
+        //     // console.log(c);
+        //     return c;
+        // })
+        // console.log(ingdi);
         //return {...singleRecipe.toJSON(),aaa:"aaaa"}
         return singleRecipe
     }
 
     create = async (newRecipe, categories, tags, ingredients) => {
-
-
-
         //return result = await sequelize.transaction(async (t) => {
         const createdRecipe = await recipe.create(newRecipe, {
             include: [step]

@@ -12,10 +12,6 @@ const RecipeIngredient = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        measuringUtensilId: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-        },
         qty: {
             type: DataTypes.INTEGER,
             defaultValue: 1

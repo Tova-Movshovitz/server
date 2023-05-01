@@ -11,6 +11,10 @@ const Comment = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        date: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
     },
     {
         freezeTableName: true,
