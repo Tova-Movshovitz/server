@@ -17,24 +17,22 @@ class RecipesDal {
             where: { userId: userId }
         })
     }
-
+   
     getOne = async (id, userId) => {
+
         const singleRecipe = await recipe.findOne(
             {
                 where: { id: id, userId: userId },
                 attributes: { exclude: ['userId'], },
                 include: [
                     {
-                        model: ingredient,
-                        through: {
-                             attributes: ["measuringUtensilId", "qty","meta"],
-                            //  include: [{
-                            //     model:measuringUtensil
-                            // }]
-
-                        },
-                       
+                        model: recipeIngredient,
+                        include: [
+                            measuringUtensil,
+                            ingredient
+                        ]
                     },
+
                     step,
                     comment,
 
@@ -53,19 +51,6 @@ class RecipesDal {
                 ]
             }
         )
-
-        // const ingdi = singleRecipe.ingredients.map(async (o) => {
-        //     console.log("this is in the map")
-        //     const newObj = { ...o }
-        //     const measuring = await measuringUtensil.findByPk(o.recipeIngredient?.measuringUtensilId)
-        //     const name = measuring.toJSON().name
-        //     console.log("aaaaaa", name);
-        //     const c = { ...newObj, measuringUtensilName: name }
-        //     // console.log(c);
-        //     return c;
-        // })
-        // console.log(ingdi);
-        //return {...singleRecipe.toJSON(),aaa:"aaaa"}
         return singleRecipe
     }
 

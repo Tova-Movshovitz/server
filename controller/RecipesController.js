@@ -18,39 +18,46 @@ class RecipesController {
         }
         res.json(ans)
     }
+    genareteCleanRecipe = (singleRecipe) => {
+        const cleanIngridients = singleRecipe.recipeIngredients.map(i => (
+            {
+                ingredientId: i.ingredientId,
+                ingredientName: i.ingredient.name,
+                ingredientImg: i.ingredient.img,
+                measuringUtensilName: i.measuringUtensil.name,
+                measuringUtensilId: i.measuringUtensilId,
+                qty: i.qty,
+                meta: i.meta,
+            }
+        ))
+
+        return {
+            id: singleRecipe.id,
+            name: singleRecipe.name,
+            description: singleRecipe.description,
+            img: singleRecipe.img,
+            preperingTime: singleRecipe.preperingTime,
+            difficult: singleRecipe.difficult,
+            serves: singleRecipe.serves,
+            ingredients: cleanIngridients,
+            steps: singleRecipe.steps,
+            comments: singleRecipe.comments,
+            tags: singleRecipe.tags,
+            categories: singleRecipe.categories,
+        }
+    }
 
     getOne = async (req, res) => {
         const id = req.params.id
         const userId = 1//req.user.id
 
         const ans = await RecipesDal.getOne(id, userId);
-        const ingridients=await recipeIngredient.findAll(
-            {
-                where:{
-                    recipeId:id
-                },
-                include:[
-                    measuringUtensil,
-                    ingredient
-                ]
-            }
-        )
-        const cleanRecipe=ingridients.map(i=>(
-            {
-                qty:i.qty,
-                ingredientName:i.ingredient.name,
-                ingredientId:i.ingredientId,
-                measuringUtensilName:i.measuringUtensil.name,
-                measuringUtensilId:i.measuringUtensilId,
-                img:i.ingredient.img,
-
-            }
-        ))
 
         if (!ans) {
             return res.status(400).json({ message: 'No recipe found' })
         }
-        res.json({recipe:ans,ingridients:cleanRecipe})
+        const cleanRecipe = this.genareteCleanRecipe(ans)
+        res.json(cleanRecipe)
     }
 
     create = async (req, res) => {

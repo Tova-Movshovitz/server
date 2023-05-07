@@ -1,5 +1,4 @@
 const db = require('../models/index');
-
 const recipe = db.recipe;
 const step = db.step;
 const comment = db.comment;
@@ -11,14 +10,14 @@ const category = db.category;
 const measuringUtensil = db.measuringUtensil
 
 const search = async (req, res) => {
-    const { name, cateogries, tags, preperingTimeMin, preperingTimeMan, difficult, withIngredients, withoutIngredients } = req.query
+    const { name, cateogries, tags, maxPreperingTime, difficult, withIngredients, withoutIngredients,offset,limit } = req.query
 
     let where = {}
     if (withIngredients) where.withIngredients = withIngredients
     if (withoutIngredients) where.withoutIngredients = withoutIngredients
 
-    const ans = recipe.findAll({
-        offset: 5, limit: 5,
+    const {recipes,totalCount} = recipe.findAndCountAll({
+        offset: offset, limit: limit,
         where: {
             name: {
                 [Op.like]: `%${name}%`
@@ -59,6 +58,8 @@ const search = async (req, res) => {
     }
     res.json(books)
 }
+
+
 const country = await Country.findByPk(1, {
     include: {
         model: City,
