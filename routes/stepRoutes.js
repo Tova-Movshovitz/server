@@ -1,6 +1,6 @@
 const express = require("express");
 const stepRouter = express.Router();
-const stepController = require("../controller/StepsController")
+const stepController = require("../controllers/StepsController")
 
 const verifyJWT=require("../middleware/verifyJWT");
 stepRouter.use(verifyJWT);

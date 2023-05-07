@@ -1,6 +1,6 @@
 const express = require("express");
 const commentRouter = express.Router();
-const commentController = require("../controller/CommentsController")
+const commentController = require("../controllers/CommentsController")
 
 const verifyJWT=require("../middleware/verifyJWT");
 commentRouter.use(verifyJWT);

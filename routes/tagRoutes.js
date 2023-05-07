@@ -1,6 +1,6 @@
 const express = require("express");
 const tagRouter = express.Router();
-const tagController = require("../controller/TagsController")
+const tagController = require("../controllers/TagsController")
 
 const verifyJWT=require("../middleware/verifyJWT");
 //tagRouter.use(verifyJWT);

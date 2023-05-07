@@ -1,6 +1,6 @@
 const express = require("express");
 const measuringUtensilRouter = express.Router();
-const measuringUtensilController = require("../controller/MeasuringUtensilsController")
+const measuringUtensilController = require("../controllers/MeasuringUtensilsController")
 
 const verifyJWT=require("../middleware/verifyJWT");
 //measuringUtensilRouter.use(verifyJWT);

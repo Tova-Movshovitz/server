@@ -26,6 +26,7 @@ app.use("/api/measuringUtensil", require("./routes/measuringUtensilRoutes"));
 app.use("/api/step", require("./routes/stepRoutes"));//check belong to user
 app.use("/api/shared", require("./routes/sharedRoutes"));
 app.use("/api/recipe", require("./routes/recipeRoutes"));//search recipe,update
+app.use("/api/upload", require("./routes/uploadRoutes"));
 
 //catch error
 

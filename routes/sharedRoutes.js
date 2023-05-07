@@ -1,6 +1,6 @@
 const express = require("express");
 const sharedRouter = express.Router();
-const sharedController = require("../controller/SharedsController")
+const sharedController = require("../controllers/SharedsController")
 
 const verifyJWT=require("../middleware/verifyJWT");
 sharedRouter.use(verifyJWT);

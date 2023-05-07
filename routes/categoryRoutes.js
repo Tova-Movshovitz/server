@@ -1,6 +1,6 @@
 const express = require("express");
 const categoryRouter = express.Router();
-const categoryController = require("../controller/CategoriesController");
+const categoryController = require("../controllers/CategoriesController");
 
 const verifyJWT=require("../middleware/verifyJWT");
 //categoryRouter.use(verifyJWT);
