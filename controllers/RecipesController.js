@@ -24,7 +24,7 @@ class RecipesController {
                 ingredientId: i.ingredientId,
                 ingredientName: i.ingredient.name,
                 ingredientImg: i.ingredient.img,
-                measuringUtensilName: i.measuringUtensil.name,
+                measuringUtensilName: i.measuringUtensil?.name,
                 measuringUtensilId: i.measuringUtensilId,
                 qty: i.qty,
                 meta: i.meta,
@@ -81,14 +81,14 @@ class RecipesController {
     update = async (req, res) => {
         const userId = 1//req.user.id
         const id = req.params.id
-        const { name, img, preperingTime, descreption, serves, tags, categories, steps, comments, ingredients } = req.body
+        const { name, img, preperingTime,difficult, description, serves, tags, categories, steps, comments, ingredients } = req.body
         if (!name || !preperingTime || !difficult || !serves) {
             return res.status(400).json({ message: 'All fields are required' })
         }
-        const ans = await RecipesDal.update(id, { userId, name, img, preperingTime, descreption, difficult, serves, steps, comments }, categories, tags, ingredients);
+        const ans = await RecipesDal.update(id, { userId, name, img, preperingTime, description, difficult, serves, steps, comments }, categories, tags, ingredients);
 
         if (!ans) {
-            return res.status(400).json({ message: 'recipe not found' })
+            return res.status(400).json({ message: 'recipe not edited' })
         }
         res.json(ans)
     }

@@ -62,24 +62,22 @@ class RecipesDal {
         );
         await createdRecipe.addTags(await tag.findAll({ where: { id: tags } }));
         await createdRecipe.addCategories(await category.findAll({ where: { id: categories } }));
-        ingredients.map(x => x.recipeId = createdRecipe.id)
-        await recipeIngredient.bulkCreate(ingredients);
-        return await this.getOne(createdRecipe.id, createdRecipe.userId);
-
+        ingredients?.map(x => x.recipeId = createdRecipe.id)
+        if(ingredients?.length>0)
+            await recipeIngredient.bulkCreate(ingredients);
+        console.log(createdRecipe);
+        return createdRecipe;// await this.getOne(createdRecipe.id, createdRecipe.userId);
         // });
     }
 
 
-    update = async (id, userId, recipeToUpdate, categories, tags, ingredients) => {
-
-        // return await recipe.update(recipeToUpdate,
-        //     { where: { id: id, userId: userId } })
-        await this.deleteOne(id, userId);
-        await this.create(id, userId, recipeToUpdate, categories, tags, ingredients);
+    update = async (id, recipeToUpdate, categories, tags, ingredients) => {
+        await this.deleteOne(id, recipeToUpdate.userId);
+        return await this.create(recipeToUpdate,categories,tags,ingredients);
     }
 
     deleteOne = async (id, userId) => {
-        await recipe.destroy({ where: { id: id, userId: userId } });
+        await recipe.destroy({ where: { id: id} });
     }
 
 }
