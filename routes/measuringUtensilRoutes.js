@@ -3,7 +3,7 @@ const measuringUtensilRouter = express.Router();
 const measuringUtensilController = require("../controllers/MeasuringUtensilsController")
 
 const verifyJWT=require("../middleware/verifyJWT");
-//measuringUtensilRouter.use(verifyJWT);
+measuringUtensilRouter.use(verifyJWT);
 
 measuringUtensilRouter.route('/')
     .get(measuringUtensilController.getAll)

@@ -26,9 +26,8 @@ const applyExtraSetup = () => {
   recipeIngredient.belongsTo(ingredient)
   ingredient.hasMany(recipeIngredient ,{onDelete: 'CASCADE'})
   
+  
   //-----many-to-many-----
-  // recipe.belongsToMany(ingredient, { through: recipeIngredient })
-  // ingredient.belongsToMany(recipe, { through: recipeIngredient })
 
   recipe.hasMany(recipeIngredient ,{onDelete: 'CASCADE'})
   recipeIngredient.belongsTo(recipe)

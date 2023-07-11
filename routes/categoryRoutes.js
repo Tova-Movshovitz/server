@@ -3,7 +3,7 @@ const categoryRouter = express.Router();
 const categoryController = require("../controllers/CategoriesController");
 
 const verifyJWT=require("../middleware/verifyJWT");
-//categoryRouter.use(verifyJWT);
+categoryRouter.use(verifyJWT);
 
 categoryRouter.route('/')
     .get(categoryController.getAll)

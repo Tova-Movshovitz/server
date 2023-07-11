@@ -10,7 +10,7 @@ const { Op } = require('sequelize');
 class RecipesController {
 
     getAll = async (req, res) => {
-        const userId = 1//req.user.id
+        const userId = req.user.id
         const ans = await RecipesDal.getAll(userId);
 
         if (!ans?.length) {
@@ -49,7 +49,7 @@ class RecipesController {
 
     getOne = async (req, res) => {
         const id = req.params.id
-        const userId = 1//req.user.id
+        const userId =req.user.id
 
         const ans = await RecipesDal.getOne(id, userId);
 
@@ -61,7 +61,7 @@ class RecipesController {
     }
 
     create = async (req, res) => {
-        const userId = 1// req.user.id;
+        const userId = req.user.id;
         const { name, img, preperingTime, description, difficult, serves, tags, categories, steps, comments, ingredients } = req.body
         console.log(name, preperingTime, difficult, serves)
         if (!name || !preperingTime || !difficult || !serves) {
@@ -79,14 +79,14 @@ class RecipesController {
     }
 
     update = async (req, res) => {
-        const userId = 1//req.user.id
+        const userId = req.user.id
         const id = req.params.id
         const { name, img, preperingTime,difficult, description, serves, tags, categories, steps, comments, ingredients } = req.body
         if (!name || !preperingTime || !difficult || !serves) {
             return res.status(400).json({ message: 'All fields are required' })
         }
         const ans = await RecipesDal.update(id, { userId, name, img, preperingTime, description, difficult, serves, steps, comments }, categories, tags, ingredients);
-
+        
         if (!ans) {
             return res.status(400).json({ message: 'recipe not edited' })
         }
@@ -94,7 +94,7 @@ class RecipesController {
     }
 
     deleteOne = async (req, res) => {
-        const userId = 1//req.user.id
+        const userId = req.user.id
         const id = req.params.id
         if (!id) {
             return res.status(400).json({ message: 'ID required' })

@@ -56,7 +56,7 @@ class CategoriesController {
 
     deleteOne = async (req, res) => {
         const id = req.params.id
-        if (!id) {//not must send id?? else give 404???
+        if (!id) {
             return res.status(400).json({ message: 'tag ID required' })
         }
         await CategoriesDal.deleteOne(id);

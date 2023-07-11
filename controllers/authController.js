@@ -44,7 +44,7 @@ const login = async (req, res) => {
     }
     //Create the token
     const accessToken = jwt.sign(userInfo, process.env.ACCESS_TOKEN_SECRET)
-    //res.setHeader('Authorization', `Bearer ${accessToken}`)
+    res.setHeader('Authorization', `Bearer ${accessToken}`)
     res.json({ accessToken,user:userInfo })
 }
 

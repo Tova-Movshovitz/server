@@ -23,9 +23,10 @@ app.use("/api/category", require("./routes/categoryRoutes"));
 app.use("/api/comment", require("./routes/commentRoutes"));//check belong to user
 app.use("/api/ingredient", require("./routes/ingredientRoutes"));
 app.use("/api/measuringUtensil", require("./routes/measuringUtensilRoutes"));
-app.use("/api/step", require("./routes/stepRoutes"));//check belong to user
+app.use("/api/step", require("./routes/stepRoutes"));
 app.use("/api/shared", require("./routes/sharedRoutes"));
-app.use("/api/recipe", require("./routes/recipeRoutes"));//search recipe,update
+app.use("/api/recipe", require("./routes/recipeRoutes"));
+app.use("/api/recipe", require("./routes/searchRecipeRoutes"));//search recipe
 app.use("/api/upload", require("./routes/uploadRoutes"));
 
 //catch error

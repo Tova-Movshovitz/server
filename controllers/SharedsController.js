@@ -3,7 +3,7 @@ const SharedsDal = require("../dal/SharedsDal");
 class SharedsController {
     //שיתפו אותי userId==to
     getAll = async (req, res) => {
-        const userId=1//req.user.id
+        const userId=req.user.id
         const ans = await SharedsDal.getAll(userId);
 
         if (!ans?.length) {
@@ -14,7 +14,7 @@ class SharedsController {
 
     getOne = async (req, res) => {
         const id = req.params.id
-        const userId=1//req.user.id
+        const userId=req.user.id
 
         const ans = await SharedsDal.getOne(id, userId);
 
@@ -25,8 +25,8 @@ class SharedsController {
     }
 
     create = async (req, res) => {
-        //get "from" or req.user.id
-        const { from, to, recipeId } = req.body
+        const from=req.user.id
+        const {to, recipeId } = req.body
         if (!from || !to || !recipeId) {
             return res.status(400).json({ message: 'All fields are required' })
         }
@@ -42,7 +42,7 @@ class SharedsController {
     }
 
     update = async (req, res) => {
-        const userId=1//req.user.id
+        const userId=req.user.id
         const id = req.params.id
         const { recipeId, from, to } = req.body
 
@@ -58,7 +58,7 @@ class SharedsController {
     }
 
     deleteOne = async (req, res) => {
-        const userId=1//req.user.id
+        const userId=req.user.id
         const id = req.params.id
         if (!id) {
             return res.status(400).json({ message: 'ID required' })

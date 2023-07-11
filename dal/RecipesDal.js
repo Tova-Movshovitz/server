@@ -65,7 +65,6 @@ class RecipesDal {
         ingredients?.map(x => x.recipeId = createdRecipe.id)
         if(ingredients?.length>0)
             await recipeIngredient.bulkCreate(ingredients);
-        console.log(createdRecipe);
         return createdRecipe;// await this.getOne(createdRecipe.id, createdRecipe.userId);
         // });
     }

@@ -3,7 +3,7 @@ const StepsDal = require("../dal/StepsDal");
 class StepsController {
 
     getOne = async (req, res) => {
-        const userId=1//req.user.id
+        const userId=req.user.id
         const id = req.params.id
         const ans = await StepsDal.getOne(userId);
         
@@ -11,7 +11,6 @@ class StepsController {
             return res.status(400).json({ message: 'No step found' })
         }
         res.json(ans)
-       //step belong to user???
     }
 
     create = async (req, res) => {
@@ -46,8 +45,6 @@ class StepsController {
 
     deleteOne = async (req, res) => {       
         
-        //step belong to user???
-
         const id = req.params.id
         if (!id) {
             return res.status(400).json({ message: 'ID required' })

@@ -21,7 +21,7 @@ db.user  = require('./user')
 //********************END MODELS*********************//
 applyExtraSetup();
 
-db.sequelize.sync({ alter: true })
+db.sequelize.sync({ alter: false })
 // db.sequelize.sync({ alter: true })
 .then(() => {
     console.log('yes re-sync done!')

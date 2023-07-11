@@ -4,7 +4,7 @@ class CommentsController {
 
     getOne = async (req, res) => {
         const id = req.params.id
-        const userId=1//req.user.id
+        const userId=req.user.id
         const ans = await CommentsDal.getOne(id,userId);
         
         if (!ans) {
@@ -29,7 +29,7 @@ class CommentsController {
     }
 
     update = async (req, res) => {
-        const userId=1//req.user.id
+        const userId=req.user.id
         const id = req.params.id
         const {msg,recipeId} = req.body
 
@@ -46,7 +46,7 @@ class CommentsController {
 
     deleteOne = async (req, res) => {       
         const id = req.params.id
-        const userId=1//req.user.id
+        const userId=req.user.id
 
         if (!id) {
             return res.status(400).json({ message: 'ID required' })

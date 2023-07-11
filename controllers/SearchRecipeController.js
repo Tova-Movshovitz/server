@@ -108,4 +108,7 @@ async function searchAndFilterRecipes(searchTerm, categoryIds, ingredientIds, ma
       return null;
     }
   }
+
+  module.exports = { search }
+
   

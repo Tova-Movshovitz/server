@@ -3,7 +3,7 @@ const ingredientRouter = express.Router();
 const ingredientController = require("../controllers/IngredientsController")
 
 const verifyJWT=require("../middleware/verifyJWT");
-//ingredientRouter.use(verifyJWT);
+ingredientRouter.use(verifyJWT);
 
 ingredientRouter.route('/')
     .get(ingredientController.getAll)

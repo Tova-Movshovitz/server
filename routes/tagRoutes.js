@@ -3,7 +3,7 @@ const tagRouter = express.Router();
 const tagController = require("../controllers/TagsController")
 
 const verifyJWT=require("../middleware/verifyJWT");
-//tagRouter.use(verifyJWT);
+tagRouter.use(verifyJWT);
 
 tagRouter.route('/')
     .get(tagController.getAll)
