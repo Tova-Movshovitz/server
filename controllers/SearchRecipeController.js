@@ -1,7 +1,6 @@
 const db = require("../models/index");
 const recipe = db.recipe;
 const step = db.step;
-const comment = db.comment;
 const tag = db.tag;
 const ingredient = db.ingredient;
 

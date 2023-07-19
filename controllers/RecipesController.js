@@ -38,7 +38,6 @@ class RecipesController {
       serves: singleRecipe.serves,
       ingredients: cleanIngridients,
       steps: singleRecipe.steps,
-      comments: singleRecipe.comments,
       tags: singleRecipe.tags,
       categories: singleRecipe.categories,
     };
@@ -69,7 +68,6 @@ class RecipesController {
       tags,
       categories,
       steps,
-      comments,
       ingredients,
     } = req.body;
     console.log(name, preperingTime, difficult, serves);
@@ -87,7 +85,6 @@ class RecipesController {
         difficult,
         serves,
         steps,
-        comments,
       },
       categories,
       tags,
@@ -116,7 +113,6 @@ class RecipesController {
       tags,
       categories,
       steps,
-      comments,
       ingredients,
     } = req.body;
     if (!name || !preperingTime || !difficult || !serves) {
@@ -133,7 +129,6 @@ class RecipesController {
         difficult,
         serves,
         steps,
-        comments,
       },
       categories,
       tags,

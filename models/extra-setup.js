@@ -8,9 +8,7 @@ const applyExtraSetup = () => {
     category,
     recipeIngredient,
     measuringUtensil,
-    shared,
     recipe,
-    comment,
     step,
     user,
   } = sequelize.models;
@@ -21,19 +19,6 @@ const applyExtraSetup = () => {
 
   recipe.hasMany(step, { onDelete: "CASCADE" });
   step.belongsTo(recipe);
-
-  recipe.hasMany(comment, { onDelete: "CASCADE" });
-  comment.belongsTo(recipe);
-
-  shared.belongsTo(recipe);
-  shared.belongsTo(user, { foreignKey: "from", as: "fromUser" });
-  shared.belongsTo(user, { foreignKey: "to", as: "toUser" });
-  recipe.hasMany(shared, { onDelete: "CASCADE" });
-  user.hasMany(
-    shared,
-    { foreignKey: "to", as: "shareds" },
-    { onDelete: "CASCADE" }
-  );
 
   recipeIngredient.belongsTo(measuringUtensil);
   measuringUtensil.hasMany(recipeIngredient, { onDelete: "CASCADE" });

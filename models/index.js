@@ -13,9 +13,7 @@ db.ingredient = require("./ingredient");
 db.category = require("./category");
 db.recipeIngredient = require("./recipeIngredient");
 db.measuringUtensil = require("./measuringUtensil");
-db.shared = require("./shared");
 db.recipe = require("./recipe");
-db.comment = require("./comment");
 db.step = require("./step");
 db.user = require("./user");
 //********************END MODELS*********************//

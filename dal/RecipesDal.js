@@ -3,7 +3,6 @@ const { sequelize } = require("sequelize");
 
 const recipe = db.recipe;
 const step = db.step;
-const comment = db.comment;
 const ingredient = db.ingredient;
 const measuringUtensil = db.measuringUtensil;
 const tag = db.tag;
@@ -28,7 +27,6 @@ class RecipesDal {
         },
 
         step,
-        comment,
 
         {
           model: tag,
