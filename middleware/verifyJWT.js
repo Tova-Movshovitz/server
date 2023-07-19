@@ -10,6 +10,5 @@ const verifyJWT = (req, res, next) => {
     req.user = decoded;
     next();
   });
-  next();
 };
 module.exports = verifyJWT;

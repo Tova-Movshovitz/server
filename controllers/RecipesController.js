@@ -9,7 +9,7 @@ const { Op } = require("sequelize");
 
 class RecipesController {
   getAll = async (req, res) => {
-    const userId = req.user.id;
+    const userId = 1; //req.user.id;
     const ans = await RecipesDal.getAll(userId);
 
     if (!ans?.length) {
@@ -45,7 +45,7 @@ class RecipesController {
 
   getOne = async (req, res) => {
     const id = req.params.id;
-    const userId = req.user.id;
+    const userId = 1; //req.user.id;
 
     const ans = await RecipesDal.getOne(id, userId);
 
@@ -57,7 +57,7 @@ class RecipesController {
   };
 
   create = async (req, res) => {
-    const userId = req.user.id;
+    const userId = 1; //req.user.id;
     const {
       name,
       img,
@@ -101,7 +101,7 @@ class RecipesController {
   };
 
   update = async (req, res) => {
-    const userId = req.user.id;
+    const userId = 1; //req.user.id;
     const id = req.params.id;
     const {
       name,
@@ -142,7 +142,7 @@ class RecipesController {
   };
 
   deleteOne = async (req, res) => {
-    const userId = req.user.id;
+    const userId = 1; //req.user.id;
     const id = req.params.id;
     if (!id) {
       return res.status(400).json({ message: "ID required" });

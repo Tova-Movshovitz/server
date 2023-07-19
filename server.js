@@ -34,5 +34,5 @@ app.all("*", (req, res) => {
   }
 });
 
-app.use(require("./middleware/errorHandler"));
+// app.use(require("./middleware/errorHandler"));
 app.listen(PORT, () => console.log("server runing"));

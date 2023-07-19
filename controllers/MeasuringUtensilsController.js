@@ -32,12 +32,10 @@ class MeasuringUtensilsController {
     });
 
     if (newMeasuringUtensil) {
-      return res
-        .status(201)
-        .json({
-          message: "New measuringUtensil created",
-          data: newMeasuringUtensil,
-        });
+      return res.status(201).json({
+        message: "New measuringUtensil created",
+        data: newMeasuringUtensil,
+      });
     } else {
       return res
         .status(400)

@@ -2,7 +2,7 @@ const StepsDal = require("../dal/StepsDal");
 
 class StepsController {
   getOne = async (req, res) => {
-    const userId = req.user.id;
+    const userId = 1//req.user.id;
     const id = req.params.id;
     const ans = await StepsDal.getOne(userId);
 
