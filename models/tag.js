@@ -12,6 +12,5 @@ const Tag = sequelize.define(
     freezeTableName: true,
     timestamps: false,
   }
-
 );
 module.exports = Tag;

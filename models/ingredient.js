@@ -8,13 +8,12 @@ const Ingredient = sequelize.define(
       unique: true,
     },
     img: {
-        type: DataTypes.STRING,
-      }
+      type: DataTypes.STRING,
+    },
   },
   {
     freezeTableName: true,
     timestamps: false,
   }
-
 );
 module.exports = Ingredient;

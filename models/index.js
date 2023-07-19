@@ -1,32 +1,30 @@
-const {Sequelize} = require('sequelize');
-const {sequelize} = require('./sequelize');
-const { applyExtraSetup } = require('./extra-setup');
+const { Sequelize } = require("sequelize");
+const { sequelize } = require("./sequelize");
+const { applyExtraSetup } = require("./extra-setup");
 
-const db = {}
+const db = {};
 
-db.Sequelize = Sequelize
-db.sequelize = sequelize
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
 
 //********************MODELS*************************//
-db.tag  = require('./tag')
-db.ingredient  = require('./ingredient')
-db.category  = require('./category')
-db.recipeIngredient = require('./recipeIngredient')
-db.measuringUtensil  = require('./measuringUtensil')
-db.shared  = require('./shared')
-db.recipe  = require('./recipe')
-db.comment  = require('./comment')
-db.step  = require('./step')
-db.user  = require('./user')       
+db.tag = require("./tag");
+db.ingredient = require("./ingredient");
+db.category = require("./category");
+db.recipeIngredient = require("./recipeIngredient");
+db.measuringUtensil = require("./measuringUtensil");
+db.shared = require("./shared");
+db.recipe = require("./recipe");
+db.comment = require("./comment");
+db.step = require("./step");
+db.user = require("./user");
 //********************END MODELS*********************//
 applyExtraSetup();
 
-db.sequelize.sync({ alter: false })
-// db.sequelize.sync({ alter: true })
-.then(() => {
-    console.log('yes re-sync done!')
-})
-module.exports = db
-
-
-
+db.sequelize
+  .sync({ alter: false })
+  // db.sequelize.sync({ alter: true })
+  .then(() => {
+    console.log("yes re-sync done!");
+  });
+module.exports = db;

@@ -1,28 +1,26 @@
-const db = require('../models/index');
+const db = require("../models/index");
 const tag = db.tag;
 
 class TagsDal {
+  getAll = async () => {
+    return await tag.findAll();
+  };
 
-    getAll = async () => {
-        return await tag.findAll()
-    }
+  getOne = async (id) => {
+    return await tag.findByPk(id);
+  };
 
-    getOne = async (id) => {
-        return await tag.findByPk(id)
-    }
+  create = async (name) => {
+    return await tag.create({ name });
+  };
 
-    create = async (name) => { 
-        return await tag.create({ name })
-    }
+  update = async (id, name) => {
+    return await tag.update({ name }, { where: { id: id } });
+  };
 
-    update = async (id,name) => {
-        return await tag.update({ name }, { where: { id: id } })
-    }
-
-     deleteOne = async (id) => {
-        await tag.destroy({ where: { id: id } });
-    }
-   
+  deleteOne = async (id) => {
+    await tag.destroy({ where: { id: id } });
+  };
 }
 
-module.exports = new TagsDal(); 
+module.exports = new TagsDal();

@@ -1,28 +1,26 @@
-const db = require('../models/index');
+const db = require("../models/index");
 const category = db.category;
 
 class CategoriesDal {
+  getAll = async (req, res) => {
+    return await category.findAll();
+  };
 
-    getAll = async (req, res) => {
-        return await category.findAll();
-    }
+  getOne = async (id) => {
+    return await category.findByPk(id);
+  };
 
-    getOne = async (id) => {
-        return await category.findByPk(id)
-    }
+  create = async (name) => {
+    return await category.create({ name });
+  };
 
-    create = async (name) => {
-        return await category.create({ name })
-    }
+  update = async (id, name) => {
+    return await category.update({ name }, { where: { id: id } });
+  };
 
-    update = async (id, name) => {
-        return await category.update({ name }, { where: { id: id } });
-    }
-
-    deleteOne = async (id) => {
-        await category.destroy({ where: { id: id } });
-    }
-
+  deleteOne = async (id) => {
+    await category.destroy({ where: { id: id } });
+  };
 }
 
 module.exports = new CategoriesDal();
